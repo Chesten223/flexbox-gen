@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CSS Flexbox Generator — Free Visual Flex Layout Tool</title>
+<meta name="description" content="Free visual CSS Flexbox generator. Adjust flex-direction, justify-content, align-items, flex-wrap, gap and more. Live preview, copy CSS+HTML, drag-to-reorder items, and ready-made presets.">
+<meta name="keywords" content="CSS Flexbox generator, flex layout tool, visual CSS editor, flexbox cheat sheet, CSS generator">
+<link rel="canonical" href="https://flexbox-gen.pages.dev/">
+<meta property="og:title" content="CSS Flexbox Generator — Free Visual Flex Layout Tool">
+<meta property="og:description" content="Free visual CSS Flexbox generator with live preview, drag reorder, presets and copyable code.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://flexbox-gen.pages.dev/">
+<meta property="og:image" content="https://flexbox-gen.pages.dev/og-image.png">
+<meta property="og:site_name" content="Flexbox Generator">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CSS Flexbox Generator — Free Visual Flex Layout Tool">
+<meta name="twitter:description" content="Free visual CSS Flexbox generator with live preview, drag reorder, presets and copyable code.">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebApplication",
+  "name":"CSS Flexbox Generator",
+  "url":"https://flexbox-gen.pages.dev/",
+  "description":"Free visual CSS Flexbox generator with live preview, drag-to-reorder items, presets and copyable code.",
+  "applicationCategory":"DeveloperApplication",
+  "operatingSystem":"All",
+  "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+  "browserRequirements":"Requires JavaScript"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"What is CSS Flexbox?","acceptedAnswer":{"@type":"Answer","text":"CSS Flexbox (Flexible Box Layout) is a one-dimensional layout model that provides efficient distribution of space among items in a container, even when their size is unknown. It simplifies building responsive layouts without floats or positioning."}},
+    {"@type":"Question","name":"How do I use this Flexbox Generator?","acceptedAnswer":{"@type":"Answer","text":"Adjust the container and item controls on the left panel. The visual preview updates in real-time. Click any preset to load a common layout. Drag items to reorder them. Copy the generated CSS and HTML from the code output panel."}},
+    {"@type":"Question","name":"Can I use the generated code in my projects?","acceptedAnswer":{"@type":"Answer","text":"Yes, all generated code is free to use in personal and commercial projects with no attribution required."}}
+  ]
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#21262d;--border:#30363d;--text:#e6edf3;--text2:#8b949e;--accent:#58a6ff;--accent2:#1f6feb;--green:#3fb950;--orange:#d29922;--pink:#f778ba;--purple:#bc8cff;--red:#ff7b72}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+header h1{font-size:1.25rem;font-weight:600}
+header h1 span{color:var(--accent)}
+header nav{display:flex;gap:1rem;font-size:.875rem}
+.main{display:grid;grid-template-columns:280px 1fr 320px;gap:0;min-height:calc(100vh - 110px)}
+@media(max-width:1024px){.main{grid-template-columns:1fr;grid-template-rows:auto}}
+.panel{border-right:1px solid var(--border);padding:1rem;overflow-y:auto;max-height:calc(100vh - 110px)}
+@media(max-width:1024px){.panel{max-height:none;border-right:none;border-bottom:1px solid var(--border)}}
+.panel:last-child{border-right:none;border-left:1px solid var(--border)}
+@media(max-width:1024px){.panel:last-child{border-left:none;border-top:1px solid var(--border)}}
+.section{margin-bottom:1.25rem}
+.section-title{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text2);margin-bottom:.5rem;font-weight:600}
+.control{margin-bottom:.625rem}
+.control label{display:block;font-size:.8rem;color:var(--text2);margin-bottom:.2rem}
+.control select,.control input[type=number],.control input[type=text]{width:100%;padding:.35rem .5rem;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.8rem;outline:none}
+.control select:focus,.control input:focus{border-color:var(--accent)}
+.control input[type=range]{width:100%;accent-color:var(--accent)}
+.range-val{font-size:.75rem;color:var(--accent);float:right}
+.btn{display:inline-flex;align-items:center;gap:.375rem;padding:.4rem .75rem;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);font-size:.8rem;cursor:pointer;transition:all .15s}
+.btn:hover{background:var(--surface2);border-color:var(--accent)}
+.btn-accent{background:var(--accent2);border-color:var(--accent2);color:#fff}
+.btn-accent:hover{background:var(--accent)}
+.btn-sm{padding:.25rem .5rem;font-size:.75rem}
+.btn-danger{border-color:var(--red);color:var(--red)}
+.btn-danger:hover{background:rgba(255,123,114,.1)}
+.presets{display:flex;flex-wrap:wrap;gap:.375rem}
+.preset{padding:.3rem .6rem;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:.75rem;cursor:pointer;transition:all .15s}
+.preset:hover{border-color:var(--accent);color:var(--accent)}
+.preview-area{padding:1.5rem;display:flex;flex-direction:column;gap:1rem;overflow:auto}
+.preview-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem;min-height:300px;position:relative;flex:1}
+.flex-container{display:flex;min-height:250px;border:2px dashed var(--border);border-radius:6px;padding:8px;gap:8px;transition:all .2s}
+.flex-item{border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;color:#fff;min-width:40px;min-height:40px;cursor:grab;transition:opacity .15s,transform .15s;user-select:none}
+.flex-item:active{cursor:grabbing}
+.flex-item.dragging{opacity:.4;transform:scale(.95)}
+.flex-item.drag-over{outline:2px dashed var(--accent);outline-offset:-2px}
+.code-area{padding:1rem;overflow-y:auto;max-height:calc(100vh - 110px)}
+@media(max-width:1024px){.code-area{max-height:none}}
+.code-block{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.75rem;margin-bottom:.75rem;position:relative}
+.code-block pre{font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;font-size:.75rem;line-height:1.6;color:var(--text);overflow-x:auto;white-space:pre}
+.code-block .copy-btn{position:absolute;top:.5rem;right:.5rem;padding:.2rem .5rem;background:var(--surface2);border:1px solid var(--border);border-radius:4px;color:var(--text2);font-size:.7rem;cursor:pointer}
+.code-block .copy-btn:hover{color:var(--accent);border-color:var(--accent)}
+.item-tabs{display:flex;gap:.25rem;flex-wrap:wrap;margin-bottom:.5rem}
+.item-tab{padding:.2rem .5rem;background:var(--surface);border:1px solid var(--border);border-radius:4px;font-size:.7rem;cursor:pointer;color:var(--text2)}
+.item-tab.active{border-color:var(--accent);color:var(--accent);background:var(--surface2)}
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--green);color:#fff;padding:.5rem 1rem;border-radius:6px;font-size:.85rem;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
+.toast.show{opacity:1}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;padding:2rem;background:var(--surface);border-top:1px solid var(--border)}
+.feature{text-align:center;padding:1rem}
+.feature h3{font-size:1rem;margin-bottom:.375rem;color:var(--accent)}
+.feature p{font-size:.85rem;color:var(--text2)}
+.faq{max-width:720px;margin:0 auto;padding:2rem}
+.faq-item{border-bottom:1px solid var(--border);padding:1rem 0}
+.faq-item h3{font-size:.95rem;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-item h3::after{content:'+';color:var(--accent);font-size:1.2rem;transition:transform .2s}
+.faq-item.open h3::after{transform:rotate(45deg)}
+.faq-item p{font-size:.85rem;color:var(--text2);max-height:0;overflow:hidden;transition:max-height .3s}
+.faq-item.open p{max-height:200px;margin-top:.5rem}
+.email-section{background:var(--surface);border-top:1px solid var(--border);padding:2rem;text-align:center}
+.email-section h3{font-size:1rem;margin-bottom:.5rem}
+.email-section p{font-size:.85rem;color:var(--text2);margin-bottom:1rem}
+.email-form{display:flex;gap:.5rem;max-width:400px;margin:0 auto}
+.email-form input{flex:1;padding:.5rem .75rem;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.85rem}
+.email-form button{padding:.5rem 1rem;background:var(--accent2);border:none;border-radius:6px;color:#fff;font-size:.85rem;cursor:pointer}
+.email-form button:hover{background:var(--accent)}
+footer{border-top:1px solid var(--border);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;font-size:.8rem;color:var(--text2)}
+.cross-links{display:flex;gap:1rem;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<header>
+  <h1><span>Flexbox</span> Generator</h1>
+  <nav>
+    <a href="#tool">Tool</a>
+    <a href="#features">Features</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://css-grid-gen.pages.dev/" rel="noopener">CSS Grid Generator →</a>
+  </nav>
+</header>
+
+<div class="main" id="tool">
+  <!-- Left Panel: Controls -->
+  <div class="panel">
+    <div class="section">
+      <div class="section-title">Presets</div>
+      <div class="presets">
+        <button class="preset" data-preset="navbar">Navbar</button>
+        <button class="preset" data-preset="cardrow">Card Row</button>
+        <button class="preset" data-preset="sidebar">Sidebar</button>
+        <button class="preset" data-preset="centering">Centering</button>
+        <button class="preset" data-preset="holygrail">Holy Grail</button>
+        <button class="preset" data-preset="footer">Footer</button>
+        <button class="preset" data-preset="masonry">Masonry-like</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Container</div>
+      <div class="control"><label>flex-direction</label><select id="c-flex-direction"><option>row</option><option>row-reverse</option><option>column</option><option>column-reverse</option></select></div>
+      <div class="control"><label>justify-content</label><select id="c-justify-content"><option>flex-start</option><option>flex-end</option><option>center</option><option>space-between</option><option>space-around</option><option>space-evenly</option></select></div>
+      <div class="control"><label>align-items</label><select id="c-align-items"><option>stretch</option><option>flex-start</option><option>flex-end</option><option>center</option><option>baseline</option></select></div>
+      <div class="control"><label>flex-wrap</label><select id="c-flex-wrap"><option>nowrap</option><option>wrap</option><option>wrap-reverse</option></select></div>
+      <div class="control"><label>gap <span class="range-val" id="gap-val">8px</span></label><input type="range" id="c-gap" min="0" max="40" value="8"></div>
+      <div class="control"><label>height</label><select id="c-height"><option value="250px">250px</option><option value="350px">350px</option><option value="500px">500px</option><option value="auto">auto</option></select></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Items <button class="btn btn-sm btn-accent" id="add-item">+ Add</button></div>
+      <div class="item-tabs" id="item-tabs"></div>
+      <div id="item-controls">
+        <div class="control"><label>flex-grow <span class="range-val" id="grow-val">0</span></label><input type="range" id="i-grow" min="0" max="10" value="0"></div>
+        <div class="control"><label>flex-shrink <span class="range-val" id="shrink-val">1</span></label><input type="range" id="i-shrink" min="0" max="10" value="1"></div>
+        <div class="control"><label>flex-basis</label><select id="i-basis"><option value="auto">auto</option><option value="0">0</option><option value="100px">100px</option><option value="150px">150px</option><option value="200px">200px</option><option value="25%">25%</option><option value="33.333%">33.333%</option><option value="50%">50%</option></select></div>
+        <div class="control"><label>align-self</label><select id="i-align-self"><option value="auto">auto</option><option>flex-start</option><option>flex-end</option><option>center</option><option>stretch</option><option>baseline</option></select></div>
+        <div class="control"><label>order <span class="range-val" id="order-val">0</span></label><input type="range" id="i-order" min="-5" max="10" value="0"></div>
+        <div class="control"><label>width <span class="range-val" id="width-val">80px</span></label><input type="range" id="i-width" min="30" max="300" value="80"></div>
+        <div class="control"><label>height <span class="range-val" id="height-val">auto</span></label><input type="range" id="i-height" min="30" max="300" value="0" title="0 = auto"></div>
+        <div style="margin-top:.5rem"><button class="btn btn-sm btn-danger" id="remove-item">− Remove Selected</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Center: Preview -->
+  <div class="preview-area">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <span style="font-size:.8rem;color:var(--text2)">Live Preview — drag items to reorder</span>
+    </div>
+    <div class="preview-box">
+      <div class="flex-container" id="preview"></div>
+    </div>
+  </div>
+
+  <!-- Right Panel: Code -->
+  <div class="panel code-area">
+    <div class="section-title">Generated CSS</div>
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode('css-code')">Copy</button>
+      <pre id="css-code"></pre>
+    </div>
+    <div class="section-title">Generated HTML</div>
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode('html-code')">Copy</button>
+      <pre id="html-code"></pre>
+    </div>
+    <div style="margin-top:1rem">
+      <button class="btn btn-accent" onclick="copyAll()" style="width:100%;justify-content:center">Copy All Code</button>
+    </div>
+  </div>
+</div>
+
+<!-- Features -->
+<section class="features" id="features">
+  <div class="feature">
+    <h3>🎨 Visual Editing</h3>
+    <p>Adjust flex-direction, justify-content, align-items, flex-wrap and gap with instant visual feedback. See exactly how your layout behaves.</p>
+  </div>
+  <div class="feature">
+    <h3>🧩 Ready-Made Presets</h3>
+    <p>Jump-start with Navbar, Card Row, Sidebar, Centering, Holy Grail, Footer and Masonry-like presets. One click to load a production pattern.</p>
+  </div>
+  <div class="feature">
+    <h3>🔀 Drag to Reorder</h3>
+    <p>Drag items directly in the preview to reorder them. The generated code updates instantly — no manual rearranging needed.</p>
+  </div>
+  <div class="feature">
+    <h3>📋 Copy-Ready Code</h3>
+    <p>Get clean, production-ready CSS and HTML with a single click. No dependencies, no frameworks — just pure CSS Flexbox.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <h2 style="text-align:center;margin-bottom:1.5rem;font-size:1.25rem">Frequently Asked Questions</h2>
+  <div class="faq-item">
+    <h3>What is CSS Flexbox?</h3>
+    <p>CSS Flexbox (Flexible Box Layout) is a one-dimensional layout model that provides efficient distribution of space among items in a container, even when their size is unknown. It simplifies building responsive layouts without floats or positioning.</p>
+  </div>
+  <div class="faq-item">
+    <h3>How do I use this Flexbox Generator?</h3>
+    <p>Adjust the container and item controls on the left panel. The visual preview updates in real-time. Click any preset to load a common layout. Drag items to reorder them. Copy the generated CSS and HTML from the code output panel.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Can I use the generated code in my projects?</h3>
+    <p>Yes, all generated code is free to use in personal and commercial projects with no attribution required.</p>
+  </div>
+</section>
+
+<!-- Email Widget -->
+<section class="email-section">
+  <h3>Get Flexbox Tips &amp; New Generator Updates</h3>
+  <p>No spam. Unsubscribe anytime.</p>
+  <form class="email-form" onsubmit="subscribe(event)">
+    <input type="email" placeholder="you@example.com" required aria-label="Email address">
+    <button type="submit">Subscribe</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer>
+  <span>© 2026 Flexbox Generator — Free CSS Flex Layout Tool</span>
+  <div class="cross-links">
+    <a href="https://css-grid-gen.pages.dev/" rel="noopener">CSS Grid Generator</a>
+    <a href="https://shadow-gen.pages.dev/" rel="noopener">Box Shadow Generator</a>
+    <a href="https://gradient-gen.pages.dev/" rel="noopener">CSS Gradient Generator</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const COLORS = ['#58a6ff','#3fb950','#d29922','#f778ba','#bc8cff','#ff7b72','#79c0ff','#56d364','#e3b341','#d2a8ff'];
+let items = [
+  {grow:0,shrink:1,basis:'auto',alignSelf:'auto',order:0,w:80,h:0},
+  {grow:0,shrink:1,basis:'auto',alignSelf:'auto',order:0,w:100,h:0},
+  {grow:0,shrink:1,basis:'auto',alignSelf:'auto',order:0,w:70,h:0}
+];
+let selected = 0;
+
+const $=id=>document.getElementById(id);
+const preview=$('preview');
+const cssCode=$('css-code');
+const htmlCode=$('html-code');
+
+// Container controls
+const cEls={
+  dir:$('c-flex-direction'),jc:$('c-justify-content'),ai:$('c-align-items'),
+  wrap:$('c-flex-wrap'),gap:$('c-gap'),height:$('c-height')
+};
+// Item controls
+const iEls={
+  grow:$('i-grow'),shrink:$('i-shrink'),basis:$('i-basis'),
+  alignSelf:$('i-align-self'),order:$('i-order'),width:$('i-width'),height:$('i-height')
+};
+
+function containerStyle(){
+  return {
+    flexDirection:cEls.dir.value,justifyContent:cEls.jc.value,alignItems:cEls.ai.value,
+    flexWrap:cEls.wrap.value,gap:cEls.gap.value+'px',height:cEls.height.value
+  };
+}
+
+function render(){
+  // tabs
+  const tabs=$('item-tabs');
+  tabs.innerHTML='';
+  items.forEach((_,i)=>{
+    const t=document.createElement('button');
+    t.className='item-tab'+(i===selected?' active':'');
+    t.textContent='Item '+(i+1);
+    t.onclick=()=>{selected=i;loadItemControls();render()};
+    tabs.appendChild(t);
+  });
+
+  // preview
+  const cs=containerStyle();
+  const fc=preview;
+  fc.style.cssText='display:flex;min-height:'+cs.height+';border:2px dashed var(--border);border-radius:6px;padding:8px;';
+  fc.style.flexDirection=cs.flexDirection;
+  fc.style.justifyContent=cs.justifyContent;
+  fc.style.alignItems=cs.alignItems;
+  fc.style.flexWrap=cs.flexWrap;
+  fc.style.gap=cs.gap;
+  if(cs.height!=='auto')fc.style.height=cs.height;else fc.style.height='auto';
+
+  fc.innerHTML='';
+  items.forEach((it,i)=>{
+    const d=document.createElement('div');
+    d.className='flex-item';
+    d.draggable=true;
+    d.dataset.index=i;
+    d.style.background=COLORS[i%COLORS.length];
+    d.style.flexGrow=it.grow;
+    d.style.flexShrink=it.shrink;
+    d.style.flexBasis=it.basis;
+    if(it.alignSelf!=='auto')d.style.alignSelf=it.alignSelf;
+    d.style.order=it.order;
+    d.style.width=(it.basis==='auto'||it.basis==='0')?it.w+'px':'auto';
+    d.style.minWidth='30px';
+    if(it.h>0)d.style.height=it.h+'px';
+    d.textContent=(i+1);
+    if(i===selected)d.style.outline='2px solid #fff';
+    // drag events
+    d.addEventListener('dragstart',dragStart);
+    d.addEventListener('dragover',dragOver);
+    d.addEventListener('dragleave',dragLeave);
+    d.addEventListener('drop',drop);
+    d.addEventListener('dragend',dragEnd);
+    d.addEventListener('click',()=>{selected=i;loadItemControls();render()});
+    fc.appendChild(d);
+  });
+
+  // code
+  generateCode(cs);
+}
+
+function loadItemControls(){
+  const it=items[selected];if(!it)return;
+  iEls.grow.value=it.grow;$('grow-val').textContent=it.grow;
+  iEls.shrink.value=it.shrink;$('shrink-val').textContent=it.shrink;
+  iEls.basis.value=it.basis;
+  iEls.alignSelf.value=it.alignSelf;
+  iEls.order.value=it.order;$('order-val').textContent=it.order;
+  iEls.width.value=it.w;$('width-val').textContent=it.w+'px';
+  iEls.height.value=it.h;$('height-val').textContent=it.h===0?'auto':it.h+'px';
+}
+
+function generateCode(cs){
+  let css=`.flex-container {\n  display: flex;\n  flex-direction: ${cs.flexDirection};\n  justify-content: ${cs.justifyContent};\n  align-items: ${cs.alignItems};\n  flex-wrap: ${cs.flexWrap};\n  gap: ${cs.gap};\n}`;
+  let html=`<div class="flex-container">\n`;
+  items.forEach((it,i)=>{
+    let cls='flex-item';
+    let style=`flex: ${it.grow} ${it.shrink} ${it.basis};`;
+    if(it.alignSelf!=='auto')style+=` align-self: ${it.alignSelf};`;
+    if(it.order!==0)style+=` order: ${it.order};`;
+    if(it.h>0)style+=` height: ${it.h}px;`;
+    if(it.basis==='auto'||it.basis==='0')style+=` width: ${it.w}px;`;
+    html+=`  <div class="${cls}" style="${style.trim()}">${i+1}</div>\n`;
+  });
+  html+=`</div>`;
+  cssCode.textContent=css;
+  htmlCode.textContent=html;
+}
+
+// Drag & drop reorder
+let dragIdx=null;
+function dragStart(e){dragIdx=+e.target.dataset.index;e.target.classList.add('dragging');e.dataTransfer.effectAllowed='move'}
+function dragOver(e){e.preventDefault();e.dataTransfer.dropEffect='move';e.target.classList.add('drag-over')}
+function dragLeave(e){e.target.classList.remove('drag-over')}
+function drop(e){
+  e.preventDefault();
+  e.target.classList.remove('drag-over');
+  const toIdx=+e.target.dataset.index;
+  if(dragIdx!==null&&dragIdx!==toIdx&&!isNaN(toIdx)){
+    const [moved]=items.splice(dragIdx,1);
+    items.splice(toIdx,0,moved);
+    selected=toIdx;
+    loadItemControls();
+    render();
+  }
+}
+function dragEnd(e){e.target.classList.remove('dragging');dragIdx=null}
+
+// Copy
+function copyCode(id){
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>toast('Copied!'));
+}
+function copyAll(){
+  const all=document.getElementById('css-code').textContent+'\n\n'+document.getElementById('html-code').textContent;
+  navigator.clipboard.writeText(all).then(()=>toast('All code copied!'));
+}
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500)}
+function subscribe(e){e.preventDefault();toast('Subscribed!');e.target.reset()}
+
+// Presets
+const PRESETS={
+  navbar:{dir:'row',jc:'space-between',ai:'center',wrap:'nowrap',gap:'8',height:'60px',items:[
+    {grow:0,shrink:0,basis:'auto',alignSelf:'auto',order:0,w:120,h:0},
+    {grow:1,shrink:1,basis:'0',alignSelf:'auto',order:0,w:80,h:0},
+    {grow:0,shrink:0,basis:'auto',alignSelf:'auto',order:0,w:80,h:0},
+    {grow:0,shrink:0,basis:'auto',alignSelf:'auto',order:0,w:80,h:0}
+  ]},
+  cardrow:{dir:'row',jc:'flex-start',ai:'stretch',wrap:'wrap',gap:'16',height:'auto',items:[
+    {grow:1,shrink:0,basis:'200px',alignSelf:'auto',order:0,w:80,h:180},
+    {grow:1,shrink:0,basis:'200px',alignSelf:'auto',order:0,w:80,h:220},
+    {grow:1,shrink:0,basis:'200px',alignSelf:'auto',order:0,w:80,h:160},
+    {grow:1,shrink:0,basis:'200px',alignSelf:'auto',order:0,w:80,h:200}
+  ]},
+  sidebar:{dir:'row',jc:'flex-start',ai:'stretch',wrap:'nowrap',gap:'0',height:'300px',items:[
+    {grow:0,shrink:0,basis:'200px',alignSelf:'auto',order:0,w:200,h:0},
+    {grow:1,shrink:1,basis:'auto',alignSelf:'auto',order:0,w:80,h:0}
+  ]},
+  centering:{dir:'row',jc:'center',ai:'center',wrap:'nowrap',gap:'16',height:'300px',items:[
+    {grow:0,shrink:0,basis:'auto',alignSelf:'auto',order:0,w:120,h:120}
+  ]},
+  holygrail:{dir:'row',jc:'flex-start',ai:'stretch',wrap:'nowrap',gap:'0',height:'300px',items:[
+    {grow:0,shrink:0,basis:'150px',alignSelf:'auto',order:0,w:150,h:0},
+    {grow:1,shrink:1,basis:'auto',alignSelf:'auto',order:0,w:80,h:0},
+    {grow:0,shrink:0,basis:'150px',alignSelf:'auto',order:0,w:150,h:0}
+  ]},
+  footer:{dir:'row',jc:'space-around',ai:'center',wrap:'nowrap',gap:'8',height:'60px',items:[
+    {grow:0,shrink:0,basis:'auto',alignSelf:'auto',order:0,w:100,h:30},
+    {grow:0,shrink:0,basis:'auto',alignSelf:'auto',order:0,w:100,h:30},
+    {grow:0,shrink:0,basis:'auto',alignSelf:'auto',order:0,w:100,h:30}
+  ]},
+  masonry:{dir:'row',jc:'flex-start',ai:'flex-start',wrap:'wrap',gap:'12',height:'400px',items:[
+    {grow:0,shrink:0,basis:'30%',alignSelf:'auto',order:0,w:80,h:120},
+    {grow:0,shrink:0,basis:'30%',alignSelf:'auto',order:0,w:80,h:200},
+    {grow:0,shrink:0,basis:'30%',alignSelf:'auto',order:0,w:80,h:80},
+    {grow:0,shrink:0,basis:'30%',alignSelf:'auto',order:0,w:80,h:160},
+    {grow:0,shrink:0,basis:'30%',alignSelf:'auto',order:0,w:80,h:100},
+    {grow:0,shrink:0,basis:'30%',alignSelf:'auto',order:0,w:80,h:140}
+  ]}
+};
+
+document.querySelectorAll('.preset').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const p=PRESETS[btn.dataset.preset];if(!p)return;
+    cEls.dir.value=p.dir;cEls.jc.value=p.jc;cEls.ai.value=p.ai;
+    cEls.wrap.value=p.wrap;cEls.gap.value=p.gap;cEls.height.value=p.height;
+    items=JSON.parse(JSON.stringify(p.items));
+    selected=0;loadItemControls();render();
+  });
+});
+
+// Wire up controls
+Object.values(cEls).forEach(el=>{
+  el.addEventListener('input',()=>{
+    $('gap-val').textContent=cEls.gap.value+'px';
+    render();
+  });
+  el.addEventListener('change',render);
+});
+['grow','shrink','order','width','height'].forEach(k=>{
+  iEls[k].addEventListener('input',()=>{
+    const it=items[selected];if(!it)return;
+    const v=+iEls[k].value;
+    if(k==='grow'){it.grow=v;$('grow-val').textContent=v}
+    if(k==='shrink'){it.shrink=v;$('shrink-val').textContent=v}
+    if(k==='order'){it.order=v;$('order-val').textContent=v}
+    if(k==='width'){it.w=v;$('width-val').textContent=v+'px'}
+    if(k==='height'){it.h=v;$('height-val').textContent=v===0?'auto':v+'px'}
+    render();
+  });
+});
+iEls.basis.addEventListener('change',()=>{items[selected].basis=iEls.basis.value;render()});
+iEls.alignSelf.addEventListener('change',()=>{items[selected].alignSelf=iEls.alignSelf.value;render()});
+
+$('add-item').addEventListener('click',()=>{
+  items.push({grow:0,shrink:1,basis:'auto',alignSelf:'auto',order:0,w:80,h:0});
+  selected=items.length-1;loadItemControls();render();
+});
+$('remove-item').addEventListener('click',()=>{
+  if(items.length<=1)return;
+  items.splice(selected,1);
+  selected=Math.min(selected,items.length-1);
+  loadItemControls();render();
+});
+
+// FAQ toggle
+document.querySelectorAll('.faq-item h3').forEach(h=>{
+  h.addEventListener('click',()=>h.parentElement.classList.toggle('open'));
+});
+
+// Init
+loadItemControls();
+render();
+</script>
+</body>
+</html>
